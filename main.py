@@ -3,7 +3,7 @@ subjects = ["English", "Literature", "Language", "Maths", "CS", "Science", "Phys
 filepath = "C:\\Users\\Brian\\peer tutoring v2\\pairs.txt" # replace this with your output file path
 exclude = [['John Smith', 'William Jones'], ['Michael Johnson', 'Chris Brown']] # list of people who don't want to be paired together. format [tutor, student]
 
-db = mysql.connector.connect(host="localhost", user="Brian", password="admin", database="peerTutor")
+db = mysql.connector.connect(host="localhost", user="[Your name]", password="[Your password]", database="peerTutor")
 cursor = db.cursor()
     
 # Ask user for confirmation before running an sql script
