@@ -309,35 +309,6 @@ def show_tutors():
                 line += " " + subjects[i] + str(tutor[i+3])
         print(line)
 
-# reading data from the old py file
-# f = open("C:\\Users\\Brian\\OneDrive\\文档\\Year13\\other\\peer tutoring v2\\pairs.txt", "r")
-# line = f.readline()
-# count = 0
-# while len(line) > 0:
-#     count += 1
-#     print(count)
-#     data = line.split(",")
-#     tutor = data[0].strip()
-#     student = data[1].strip()
-#     if len(data) == 2:
-#         add_pair(tutor, student, "NA", 0, True)
-#     for i in range(2, len(data)):
-#         data[i] = data[i].strip()
-#         j = 0
-#         while data[i][j].isalpha(): 
-#             j += 1
-#         subject = data[i][:j]
-#         level = int(data[i][j:])
-#         assert(subject in subjects)
-#         add_pair(tutor, student, subject, level, True)
-#     line = f.readline()
-# f.close()
-# for tutor in tutors:
-#     add_tutor(tutor['name'], tutor['year_level'], tutor['subjects'], tutor['students'])
-# for student in students:
-#     add_student(student['name'], student['year_level'], student['subjects'])
-# db.commit()
-
 # print out all unformatted database for debugging
 # cursor.execute("SELECT * FROM remaining_students")
 # print(cursor.fetchall())
