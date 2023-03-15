@@ -1,7 +1,7 @@
 import mysql.connector, numpy
 subjects = ["English", "Literature", "Language", "Maths", "CS", "Science", "Physics", "Chemistry", "Biology", "Humanities", "History", "Classics", "Psychology", "Sociology", "Geography", "Accounting", "Business", "Economics", "Spanish", "Chinese", "Art", "DT", "Music", "Drama", "PE"]
-filepath = "C:\\Users\\Brian\\OneDrive\\文档\\Year13\\other\\peer tutoring v2\\pairs.txt"
-exclude = [['Aamnah Zarrouk', 'Archie Taylor'], ['Bill Xiao', 'Chenghao Li'], ['George Liao', 'Devin Joyce']]
+filepath = "C:\\Users\\Brian\\peer tutoring v2\\pairs.txt" # replace this with your output file path
+exclude = [['John Smith', 'William Jones'], ['Michael Johnson', 'Chris Brown']] # list of people who don't want to be paired together. format [tutor, student]
 
 db = mysql.connector.connect(host="localhost", user="Brian", password="admin", database="peerTutor")
 cursor = db.cursor()
@@ -102,7 +102,7 @@ def pairing():
         cursor.execute("SELECT year_level FROM students WHERE name = '{}'".format(students[i][0]))
         year = cursor.fetchone()[0]
         for j in range(t):
-            if tutors[j][1] >= year and [tutors[j][0], students[i][0]] not in exclude: # make sure the tutor isn't younger than the student and they don't have a complaint against the student
+            if tutors[j][1] >= year and [tutors[j][0], students[i][0]] not in exclude: # make sure the tutor isn't younger than the student and don't mind being paired with the student
                 num_matches = 0
                 for k in range(len(subjects)): # counts the number of matching subjects
                     if students[i][k+1] != None and tutors[j][k+3] != None:
