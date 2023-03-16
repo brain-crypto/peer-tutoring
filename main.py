@@ -5,7 +5,7 @@ exclude = [['John Smith', 'William Jones'], ['Michael Johnson', 'Chris Brown']] 
 
 db = mysql.connector.connect(host="localhost", user="[Your name]", password="[Your password]", database="peerTutor")
 cursor = db.cursor()
-    
+
 # Ask user for confirmation before running an sql script
 def run_sql(sql, ask_confirmation):
     if ask_confirmation:
@@ -32,7 +32,7 @@ def add_tutor(name, year, subjects, ask_confirmation=True):
     sql = "INSERT INTO tutors (name, year_level, tasks" + fields + ") VALUES ('{}', {}, 0".format(name, year) + data + ");"
     run_sql(sql, ask_confirmation)
 
-def add_student(name, year, subjects, ask_confirmation):
+def add_student(name, year, subjects, ask_confirmation=True):
     fields = ""
     values = ""
     for subject in subjects: # make a list of fields and a list of values to be inserted
@@ -40,7 +40,7 @@ def add_student(name, year, subjects, ask_confirmation):
         values += ", " + str(subject[1])
     sql = "INSERT INTO students (name, year_level" + fields + ") VALUES ('{}', {}".format(name, year) + values + ");"
     run_sql(sql, ask_confirmation)
-    add_remaining(name, subjects) # copy the same row to remaining_students
+    add_remaining(name, subjects, ask_confirmation) # copy the same row to remaining_students
 
 def add_remaining(name, subjects, ask_confirmation):
     cursor.execute("SELECT 1 FROM remaining_students WHERE name = '{}'".format(name))
@@ -87,7 +87,7 @@ def update_student(name, year, subjects, ask_confirmation=True):
         sql += ", {} = {}".format(subject[0], subject[1])
     sql += " WHERE name = '{}';".format(name)
     run_sql(sql, ask_confirmation)
-    add_remaining(name, subjects)
+    add_remaining(name, subjects, ask_confirmation)
     
 def pairing():
     cursor.execute("SELECT * FROM remaining_students;")
@@ -102,7 +102,7 @@ def pairing():
         cursor.execute("SELECT year_level FROM students WHERE name = '{}'".format(students[i][0]))
         year = cursor.fetchone()[0]
         for j in range(t):
-            if tutors[j][1] >= year and [tutors[j][0], students[i][0]] not in exclude: # make sure the tutor isn't younger than the student and don't mind being paired with the student
+            if tutors[j][1] >= year and [tutors[j][0], students[i][0]] not in exclude: # make sure the tutor isn't younger than the student and they don't have a complaint against the student
                 num_matches = 0
                 for k in range(len(subjects)): # counts the number of matching subjects
                     if students[i][k+1] != None and tutors[j][k+3] != None:
